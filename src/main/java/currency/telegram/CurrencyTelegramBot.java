@@ -1,7 +1,8 @@
 package currency.telegram;
 
 import currency.*;
-import currency.impl.CurrencyRatePrettierImpl;
+import currency.dto.User;
+import currency.impl.CurrencyRatePrettierImpl1;
 import currency.impl.CurrencyServiceMonoBankImpl;
 import currency.impl.CurrencyServicePrivateBankImpl;
 import currency.telegram.command.StartCommand;
@@ -28,7 +29,7 @@ public class CurrencyTelegramBot extends TelegramLongPollingCommandBot {
     public CurrencyTelegramBot() {
         currencyService = new CurrencyServicePrivateBankImpl();
         //currencyService = new CurrencyServiceMonoBankImpl();
-        currencyRatePrettier = new CurrencyRatePrettierImpl();
+        currencyRatePrettier = new CurrencyRatePrettierImpl1();
         register(new StartCommand());
     }
 
@@ -43,6 +44,7 @@ public class CurrencyTelegramBot extends TelegramLongPollingCommandBot {
 
     @Override
     public void processNonCommandUpdate(Update update) {
+
         if (update.hasCallbackQuery()) {
             String data = update.getCallbackQuery().getData();
             System.out.println(data);
@@ -195,17 +197,21 @@ public class CurrencyTelegramBot extends TelegramLongPollingCommandBot {
         }
         if (update.hasMessage()) {
             String receivedText = update.getMessage().getText();
+            String text = "";
             List <String> buttonsTime = Arrays.asList(Buttons.TIME1.get(), Buttons.TIME2.get(), Buttons.TIME3.get(), Buttons.TIME4.get(), Buttons.TIME5.get(),Buttons.TIME6.get(), Buttons.TIME7.get(),Buttons.TIME8.get(),Buttons.TIME9.get(), Buttons.TIME10.get());
             SendMessage sm = new SendMessage();
             if (receivedText.equals(Buttons.NOTIME.get())) {
-                sm.setText("Ви вимкнули час сповіщеннь, тому інформацію можете отримувати натискаючи кнопку Отримати інфо");
+                text = "Ви вимкнули час сповіщеннь, тому інформацію можете отримувати натискаючи кнопку Отримати інфо";
             }
             for (String button: buttonsTime) {
                 if (receivedText.equals(button)) {
-                    sm.setText("Ви обрали час надсилання повідомлень о " + receivedText);
+                    text = "Ви обрали час надсилання повідомлень о " + receivedText;
                 }
             }
-            sm.setText("Ви написали: " + receivedText + " Цей бот не має можливості опрацьовувати текст. Оберіть, будь ласка, кнопку");
+            if (text == "") {
+                text = "Ви написали: " + receivedText + " Цей бот не має можливості опрацьовувати текст. Оберіть, будь ласка, кнопку";
+            }
+            sm.setText(text);
             sm.setChatId(update.getMessage().getChatId());
 
             try {

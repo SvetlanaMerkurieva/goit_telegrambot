@@ -6,7 +6,7 @@ import currency.CurrencyRatePrettier;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-public class CurrencyRatePrettierImpl implements CurrencyRatePrettier {
+public class CurrencyRatePrettierImpl1 implements CurrencyRatePrettier {
     public static final String FORMAT_BUY = "Покупка: %s";
     public static final String FORMAT_SALE = "Продаж: %s";
 
