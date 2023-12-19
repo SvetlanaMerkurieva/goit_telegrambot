@@ -3,7 +3,8 @@ package currency;
 import com.vdurmont.emoji.EmojiParser;
 
 public enum Icons {
-    CHECK(":white_check_mark:");
+    CHECK(":white_check_mark:"),
+    FIRE(":fire:");
 
     private final String value;
     public String get() {
