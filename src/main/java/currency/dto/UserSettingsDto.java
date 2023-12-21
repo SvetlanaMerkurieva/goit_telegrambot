@@ -2,6 +2,7 @@ package currency.dto;
 
 
 
+import currency.Currency;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -12,8 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 public class UserSettingsDto {
     private String bank;
-    private List<String> currencies;
-    private int signsAfterPoint;
+    private List<Currency> currencies;
+    private String signsAfterPoint;
     private String time;
 
 }

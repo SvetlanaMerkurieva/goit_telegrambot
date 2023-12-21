@@ -14,10 +14,10 @@ import java.util.List;
 
 public class SettingsButtonHandler implements Handlers {
     @Override
-    public SendMessage sendMessage(Update update) {
+    public SendMessage sendMessage(Long userId) {
         SendMessage message = new SendMessage();
         message.setText("Налаштування:");
-        message.setChatId(update.getCallbackQuery().getMessage().getChatId());
+        message.setChatId(userId);
 
         List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
 

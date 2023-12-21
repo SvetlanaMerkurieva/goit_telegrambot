@@ -4,23 +4,18 @@ import currency.*;
 import currency.dto.UserSettingsDto;
 import currency.impl.*;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
-public class InfoButtonHandler2 {
+public class InfoInTimeButtonHandler2 {
     private CurrencyService currencyService;
     private CurrencyRatePrettier currencyRatePrettier;
 
-
-    public SendMessage sendMessage(Long id, UserSettingsDto userSettings) {
+    public SendMessage sendMessage(Long userId, UserSettingsDto userSettings) {
         String userBank = userSettings.getBank();
         String userSignsAfterPoint = userSettings.getSignsAfterPoint();
-        List<Currency> userCurrencies = userSettings.getCurrencies();
+        List<Currency> userCurrencies = new ArrayList<>();
         String userTime = userSettings.getTime();
         if (userBank.equals(Buttons.BANK1.get())) {
             currencyService = new CurrencyServicePrivateBankImpl();
@@ -28,9 +23,9 @@ public class InfoButtonHandler2 {
         if (userBank.equals(Buttons.BANK2.get())) {
             currencyService = new CurrencyServiceMonoBankImpl();
         }
-        /*if (userBank.equals(Buttons.BANK3.get())) {
-            currencyService = new CurrencyServiceNBUImpl();
-        }*/
+            /*if (userBank.equals(Buttons.BANK3.get())) {
+                currencyService = new CurrencyServiceNBUImpl();
+            }*/
         if (userSignsAfterPoint.equals(Buttons.SIGNS1.get())) {
             currencyRatePrettier = new CurrencyRatePrettierImpl1();
         }
@@ -45,8 +40,7 @@ public class InfoButtonHandler2 {
         for (Currency userCurrency: userCurrencies) {
             String prettyRate = getRate(String.valueOf(userCurrency));
             message.setText("Курс в " + userBank + " " + userCurrency + "/" + Currency.UAH + "\n" + prettyRate);
-            message.setChatId(id);
-            message.
+            message.setChatId(userId);
         }
         return message;
     }
@@ -56,3 +50,4 @@ public class InfoButtonHandler2 {
         return currencyRatePrettier.pretty(currencyService.getRateBuy(currency), currencyService.getRateSale(currency), currency);
     }
 }
+

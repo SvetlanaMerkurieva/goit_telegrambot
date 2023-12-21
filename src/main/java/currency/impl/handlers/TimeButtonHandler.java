@@ -13,10 +13,10 @@ import java.util.List;
 
 public class TimeButtonHandler implements Handlers {
     @Override
-    public SendMessage sendMessage(Update update) {
+    public SendMessage sendMessage(Long userId) {
         SendMessage message = new SendMessage();
         message.setText("Оберіть Час оповіщення:");
-        message.setChatId(update.getCallbackQuery().getMessage().getChatId());
+        message.setChatId(userId);
 
         List<KeyboardRow> keyboards = new ArrayList<>();
         KeyboardRow keyboardFirstRow = new KeyboardRow();

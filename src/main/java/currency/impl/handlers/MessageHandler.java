@@ -10,8 +10,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import java.util.Arrays;
 import java.util.List;
 
-public class MessageHandler implements Handlers {
-    @Override
+public class MessageHandler {
     public SendMessage sendMessage(Update update) {
         String receivedText = update.getMessage().getText();
         String text = "";
