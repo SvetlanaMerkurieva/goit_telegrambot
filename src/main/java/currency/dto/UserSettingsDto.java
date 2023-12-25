@@ -8,12 +8,12 @@ import lombok.Data;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Data
-@AllArgsConstructor
 public class UserSettingsDto {
     private String bank;
-    private List<Currency> currencies;
+    private Set<Currency> currencies;
     private String signsAfterPoint;
     private String time;
 

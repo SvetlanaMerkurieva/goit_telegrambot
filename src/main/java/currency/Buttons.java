@@ -23,7 +23,11 @@ public enum Buttons {
     TIME8("16-00"),
     TIME9("17-00"),
     TIME10("18-00"),
-    NOTIME("Вимкнути повідомлення");
+    NOTIME("Вимкнути повідомлення"),
+    FURTHER("Далі"),
+    RESALT("Результат"),
+    INFONOW("Курс валют на зараз");
+
 
     private String value;
     public String get() {

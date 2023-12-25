@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class InfoInTimeButtonHandler2 {
     private CurrencyService currencyService;
@@ -15,17 +16,16 @@ public class InfoInTimeButtonHandler2 {
     public SendMessage sendMessage(Long userId, UserSettingsDto userSettings) {
         String userBank = userSettings.getBank();
         String userSignsAfterPoint = userSettings.getSignsAfterPoint();
-        List<Currency> userCurrencies = new ArrayList<>();
-        String userTime = userSettings.getTime();
+        Set<Currency> userCurrencies = userSettings.getCurrencies();
         if (userBank.equals(Buttons.BANK1.get())) {
             currencyService = new CurrencyServicePrivateBankImpl();
         }
         if (userBank.equals(Buttons.BANK2.get())) {
             currencyService = new CurrencyServiceMonoBankImpl();
         }
-            /*if (userBank.equals(Buttons.BANK3.get())) {
+        /*if (userBank.equals(Buttons.BANK3.get())) {
                 currencyService = new CurrencyServiceNBUImpl();
-            }*/
+        }*/
         if (userSignsAfterPoint.equals(Buttons.SIGNS1.get())) {
             currencyRatePrettier = new CurrencyRatePrettierImpl1();
         }
@@ -36,12 +36,14 @@ public class InfoInTimeButtonHandler2 {
             currencyRatePrettier = new CurrencyRatePrettierImpl3();
         }
 
+        String text = "";
         SendMessage message = new SendMessage();
         for (Currency userCurrency: userCurrencies) {
             String prettyRate = getRate(String.valueOf(userCurrency));
-            message.setText("Курс в " + userBank + " " + userCurrency + "/" + Currency.UAH + "\n" + prettyRate);
-            message.setChatId(userId);
+            text = text + "\n" + "Курс в " + userBank + " " + userCurrency + "/" + Currency.UAH + "\n" + prettyRate;
         }
+        message.setText(text);
+        message.setChatId(userId);
         return message;
     }
 

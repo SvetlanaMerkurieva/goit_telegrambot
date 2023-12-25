@@ -45,6 +45,10 @@ public class TimeButtonHandler implements Handlers {
 
         ReplyKeyboardMarkup rkm = new ReplyKeyboardMarkup();
 
+        rkm.setOneTimeKeyboard(true);
+        rkm.setResizeKeyboard(true);
+        rkm.setSelective(true);
+
         rkm.setKeyboard(keyboards);
         message.setReplyMarkup(rkm);
 
